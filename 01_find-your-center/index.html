@@ -15,30 +15,44 @@
         .todo {
             color: #ffc200;
         }
-        
+
+        .flex-ignore{
+            position: absolute;
+            margin-left: 0px;
+            margin-top: 0px;
+        }
+
+        .centered{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
         #hello-slap {
             background-color: #0043CE;
             border: silver 1px solid;
             padding: 10px;
             width: 320px;
-            height: 200px;
+            height: 200px; 
+            
         }
     </style>
 </head>
 
 <body>
-
-    <h1>Find your center</h1>
-    <p>Alignment is everything!</p>
-    <div class="todo">
-        <h2>Here is your task</h2>
-        <p>I need you to center the box but not its content horizontally and vertically regardless of the browser and window resolution.</p>
+    <div class="flex-ignore">
+        <h1>Find your center</h1>
+        <p>Alignment is everything!</p>
+        <div class="todo">
+            <h2>Here is your task</h2>
+            <p>I need you to center the box but not its content horizontally and vertically regardless of the browser and window resolution.</p>
+        </div>
     </div>
-
-    <div id="hello-slap">
-        Hey fellas! I feel so unaligned! :/
+    <div class = "centered">
+        <div id="hello-slap">
+            Hey fellas! I feel so unaligned! :/
+        </div>
     </div>
-
 </body>
 
 </html>
