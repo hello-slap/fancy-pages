@@ -1,0 +1,33 @@
+﻿body, html {
+    height: 100%;
+}
+
+body {
+    padding: 10px;
+    font-family: monospace;
+    font-size: x-large;
+    color: #f6f6f6;
+    background-color: #030045;
+    display: flex;
+    flex-direction: column;
+}
+
+.todo {
+    color: #ffc200;
+}
+
+#hello-slap {
+    background-color: #0043CE;
+    border: silver 1px solid;
+    padding: 10px;
+    width: 320px;
+    height: 200px;
+}
+
+.slap-container{
+    display: flex;
+    align-content: center;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+}
