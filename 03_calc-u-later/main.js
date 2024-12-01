@@ -1,23 +1,28 @@
-var calcNums = document.querySelectorAll('.numbtn div');
-for (var i = 0; i < calcNums.length; i++) {
-    calcNums[i].addEventListener("click", function(p) { pushToOutput(p.currentTarget.innerText); });
-}
+// const instead of var
+// forEach instead of for-loop
+// Arrow functions
+const calcNums = document.querySelectorAll('.numbtn div');
+calcNums.forEach(button => {
+    button.addEventListener("click", (p) => pushToOutput(p.currentTarget.innerText))
+});
 
-var calcOps = document.querySelectorAll('.opsbtns div');
-for (var i = 0; i < calcOps.length; i++) {
-    calcOps[i].addEventListener("click", function(p) { pushToOutput(p.currentTarget.title); });
-}
+const calcOps = document.querySelectorAll('.opsbtns div');
+calcOps.forEach(button => {
+    button.addEventListener("click", (p) => pushToOutput(p.currentTarget.title));
+});
 
-document.getElementById('equals').addEventListener("click", function() { calculate(); });
-document.getElementById('reset').addEventListener("click", function() { reset(); });
+// Direct references to calculate() and reset()
+document.getElementById('equals').addEventListener("click", calculate);
+document.getElementById('reset').addEventListener("click", reset);
 
 function pushToOutput(value) {
     document.getElementById("output").innerText += value;
 }
 
+// Calculate with eval
 function calculate() {
     var output = document.getElementById("output");
-    output.innerText = "Not Implemented";
+    output.innerText = eval(output.innerText);
 }
 
 function reset() {
