@@ -21,6 +21,8 @@ body {
     border-radius: 2px;
     overflow: hidden;
     color: #0043CE;
+
+    
 }
 
 .algn {
@@ -41,6 +43,7 @@ body {
     transform-style: preserve-3d;
     transition: all 2s ease-in-out;
     transform: translateZ(-110px) rotateX(-290deg) rotateZ(-135deg);
+    animation: spin 5s infinite linear;
 }
 
 #box div {
@@ -78,3 +81,9 @@ body {
     transform: rotateX(90deg) translateZ(-201px) translateY(-101px);
     background: #bbb;
 }
+
+/* Animation */
+@keyframes spin {
+    from { transform: rotateX(0deg) rotateY(0deg); }
+    to   { transform: rotateX(360deg) rotateY(360deg); }
+  }
