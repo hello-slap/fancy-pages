@@ -1,23 +1,35 @@
-var calcNums = document.querySelectorAll('.numbtn div');
-for (var i = 0; i < calcNums.length; i++) {
-    calcNums[i].addEventListener("click", function(p) { pushToOutput(p.currentTarget.innerText); });
-}
+// Select all number buttons and the output div
+const calcNums = document.querySelectorAll('.numbtn div');
+const output = document.getElementById("output");
+// Select all operator buttons (+, -, *, /)
+const calcOps = document.querySelectorAll('.opsbtns div');
 
-var calcOps = document.querySelectorAll('.opsbtns div');
+// Add click event to number buttons to append their text to output
+calcNums.forEach(btn => {
+    btn.addEventListener("click", () => pushToOutput(btn.innerText));
+});
+
 for (var i = 0; i < calcOps.length; i++) {
     calcOps[i].addEventListener("click", function(p) { pushToOutput(p.currentTarget.title); });
 }
 
-document.getElementById('equals').addEventListener("click", function() { calculate(); });
-document.getElementById('reset').addEventListener("click", function() { reset(); });
+// Add event listeners for equals and reset buttons
+document.getElementById('equals').addEventListener("click", calculate);
+document.getElementById('reset').addEventListener("click", reset);
+
 
 function pushToOutput(value) {
-    document.getElementById("output").innerText += value;
+    if (value === '.') {
+        if (canAddDecimal()) {
+            output.innerText += value;
+        }
+    } else {
+        output.innerText += value;
+    }
 }
 
 function calculate() {
     try{
-        const output = document.getElementById("output");
         const expr = output.innerText;
         // Evaluate expression safely using Function constructor
         const result = Function(`"use strict"; return (${expr})`)();
@@ -32,5 +44,12 @@ function calculate() {
 }
 
 function reset() {
-    document.getElementById("output").innerText = "";
+    output.innerText = "";
+}
+
+function canAddDecimal() {
+    // Split current expression by operators to get the last number entered
+    const tokens = output.innerText.split(/[\+\-\*\/]/);
+    const lastNumber = tokens[tokens.length - 1];
+    return !lastNumber.includes('.');
 }
