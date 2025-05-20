@@ -33,6 +33,19 @@ calcOps.forEach(btn => {
 document.getElementById('equals').addEventListener("click", calculate);
 document.getElementById('reset').addEventListener("click", reset);
 
+document.addEventListener('keydown', (e) => {
+    const allowedKeys = '0123456789+-*/.';
+    if (allowedKeys.includes(e.key)) {
+        pushToOutput(e.key);
+    } else if (e.key === 'Enter') {
+        calculate();
+    } else if (e.key === 'Backspace') {
+        output.innerText = output.innerText.slice(0, -1);
+    } else if (e.key.toLowerCase() === 'c') {
+        reset();
+    }
+});
+
 
 function pushToOutput(value) {
     if (value === '.') {
@@ -47,6 +60,12 @@ function pushToOutput(value) {
 function calculate() {
     try{
         const expr = output.innerText;
+        if (!expr) return;
+
+        if (!/^[0-9+\-*/. ()]+$/.test(expr)) {
+            throw new Error("Invalid characters detected");
+        }
+
         // Evaluate expression safely using Function constructor
         const result = Function(`"use strict"; return (${expr})`)();
 
