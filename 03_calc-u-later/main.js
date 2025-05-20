@@ -9,9 +9,25 @@ calcNums.forEach(btn => {
     btn.addEventListener("click", () => pushToOutput(btn.innerText));
 });
 
-for (var i = 0; i < calcOps.length; i++) {
-    calcOps[i].addEventListener("click", function(p) { pushToOutput(p.currentTarget.title); });
-}
+calcOps.forEach(btn => {
+    btn.addEventListener("click", () => {
+        // Get last character of current output
+        const lastChar = output.innerText.slice(-1);
+
+        // If last char is already an operator, replace it with the new one
+        if ('+-*/'.includes(lastChar)) {
+            output.innerText = output.innerText.slice(0, -1) + btn.title;
+        } 
+        // Otherwise, append operator only if output is not empty
+        else if (output.innerText.length > 0) {
+            pushToOutput(btn.title);
+        }
+        // Allow minus operator as first character (for negative numbers)
+        else if (btn.title === '-') {
+            pushToOutput(btn.title);
+        }
+    });
+});
 
 // Add event listeners for equals and reset buttons
 document.getElementById('equals').addEventListener("click", calculate);
