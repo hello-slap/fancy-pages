@@ -16,8 +16,19 @@ function pushToOutput(value) {
 }
 
 function calculate() {
-    var output = document.getElementById("output");
-    output.innerText = "Not Implemented";
+    try{
+        const output = document.getElementById("output");
+        const expr = output.innerText;
+        // Evaluate expression safely using Function constructor
+        const result = Function(`"use strict"; return (${expr})`)();
+
+        output.innerText = result;
+    }
+    catch (ex){
+        output.innerText = "Error";
+        console.error("Invalid expression:", ex);
+    }
+    
 }
 
 function reset() {
