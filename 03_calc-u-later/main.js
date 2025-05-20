@@ -57,25 +57,37 @@ function pushToOutput(value) {
     }
 }
 
-function calculate() {
-    try{
-        const expr = output.innerText;
-        if (!expr) return;
-
+function calculateExpression(expr) {
+    try {
         if (!/^[0-9+\-*/. ()]+$/.test(expr)) {
-            throw new Error("Invalid characters detected");
+            return {
+                result: null,
+                error: "Invalid characters detected"
+            };
         }
 
-        // Evaluate expression safely using Function constructor
-        const result = Function(`"use strict"; return (${expr})`)();
+        return {
+            // Evaluate expression safely using Function constructor
+            result: parseFloat(Function('"use strict";return(' + expr + ')')().toFixed(6)),
+            error: null
+        };
+    } catch (ex) {
+        console.error(`Expression evaluation failed: expression: ${expr}`);
+        return {
+            result: null,
+            error: "Invalid expression" 
+        };
+    }
+}
 
-        output.innerText = result;
-    }
-    catch (ex){
-        output.innerText = "Error";
-        console.error("Invalid expression:", ex);
-    }
-    
+function calculate() {
+
+    const expr = output.innerText;
+    if (!expr) return;
+
+    const { result, error } = calculateExpression(expr);
+
+    output.innerText = error ?? result;    
 }
 
 function reset() {
